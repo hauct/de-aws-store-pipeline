@@ -1,0 +1,152 @@
+{
+    "Comment": "data pipeline",
+    "StartAt": "fake_data",
+    "States": {
+      "fake_data": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::glue:startJobRun",
+        "Parameters": {
+          "JobName": "ai4e-ap-southeast-1-dev-glue-jb-cungtronghau_fake_data"
+        },
+        "Next": "wait_fake_data"
+      },
+      "wait_fake_data": {
+        "Type": "Wait",
+        "Seconds": 180,
+        "Next": "check_crawler_exists"
+      },
+      "check_crawler_exists": {
+        "Type": "Task",
+        "Parameters": {
+          "Name": "ai4e-ap-southeast-1-dev-glue-cwl-golden_zone-cungtronghau_account_data"
+        },
+        "Resource": "arn:aws:states:::aws-sdk:glue:getCrawler",
+        "Next": "start_crawler_1"
+      },
+      "start_crawler_1": {
+        "Type": "Task",
+        "Parameters": {
+          "Name": "ai4e-ap-southeast-1-dev-glue-cwl-golden_zone-cungtronghau_account_data"
+        },
+        "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
+        "Next": "wait_crawler_1"
+      },
+      "wait_crawler_1": {
+        "Type": "Wait",
+        "Seconds": 20,
+        "Next": "get_crawler_state_1"
+      },
+      "get_crawler_state_1": {
+        "Type": "Task",
+        "Parameters": {
+          "Name": "ai4e-ap-southeast-1-dev-glue-cwl-golden_zone-cungtronghau_account_data"
+        },
+        "Resource": "arn:aws:states:::aws-sdk:glue:getCrawler",
+        "Next": "crawler_success_1?"
+      },
+      "crawler_success_1?": {
+        "Type": "Choice",
+        "Choices": [
+          {
+            "Variable": "$.Crawler.State",
+            "StringEquals": "READY",
+            "Next": "load_data"
+          }
+        ],
+        "Default": "wait_crawler_1"
+      },
+      "load_data": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::glue:startJobRun",
+        "Parameters": {
+          "JobName": "ai4e-ap-southeast-1-dev-glue-jb-cungtronghau_load_data"
+        },
+        "Next": "wait_load_data"
+      },
+      "wait_load_data": {
+        "Type": "Wait",
+        "Seconds": 120,
+        "Next": "start_crawler_2"
+      },
+      "start_crawler_2": {
+        "Type": "Task",
+        "Parameters": {
+          "Name": "ai4e-ap-southeast-1-dev-glue-cwl-golden_zone-cungtronghau_account_data"
+        },
+        "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
+        "Next": "wait_crawler_2"
+      },
+      "wait_crawler_2": {
+        "Type": "Wait",
+        "Seconds": 20,
+        "Next": "get_crawler_state_2"
+      },
+      "get_crawler_state_2": {
+        "Type": "Task",
+        "Parameters": {
+          "Name": "ai4e-ap-southeast-1-dev-glue-cwl-golden_zone-cungtronghau_account_data"
+        },
+        "Resource": "arn:aws:states:::aws-sdk:glue:getCrawler",
+        "Next": "crawler_success_2?"
+      },
+      "crawler_success_2?": {
+        "Type": "Choice",
+        "Choices": [
+          {
+            "Variable": "$.Crawler.State",
+            "StringEquals": "READY",
+            "Next": "transform_data"
+          }
+        ],
+        "Default": "wait_crawler_2"
+      },
+      "transform_data": {
+        "Type": "Task",
+        "Resource": "arn:aws:states:::glue:startJobRun",
+        "Parameters": {
+          "JobName": "ai4e-ap-southeast-1-dev-glue-jb-cungtronghau_transform_data"
+        },
+        "Next": "wait_transform_data"
+      },
+      "wait_transform_data": {
+        "Type": "Wait",
+        "Seconds": 180,
+        "Next": "start_crawler_3"
+      },
+      "start_crawler_3": {
+        "Type": "Task",
+        "Parameters": {
+          "Name": "ai4e-ap-southeast-1-dev-glue-cwl-golden_zone-cungtronghau_account_data"
+        },
+        "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
+        "Next": "wait_crawler_3"
+      },
+      "wait_crawler_3": {
+        "Type": "Wait",
+        "Seconds": 20,
+        "Next": "get_crawler_state_3"
+      },
+      "get_crawler_state_3": {
+        "Type": "Task",
+        "Parameters": {
+          "Name": "ai4e-ap-southeast-1-dev-glue-cwl-golden_zone-cungtronghau_account_data"
+        },
+        "Resource": "arn:aws:states:::aws-sdk:glue:getCrawler",
+        "Next": "crawler_success_3?"
+      },
+      "crawler_success_3?": {
+        "Type": "Choice",
+        "Choices": [
+          {
+            "Variable": "$.Crawler.State",
+            "StringEquals": "READY",
+            "Next": "Success"
+          }
+        ],
+        "Default": "wait_crawler_3"
+      },
+      "Success": {
+        "Type": "Succeed"
+      }
+    }
+  }

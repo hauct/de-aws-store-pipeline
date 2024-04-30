@@ -3,9 +3,9 @@
     "version": "2.2.13",
     "width": 2000,
     "height": 2000,
-    "scrollTop": -435,
-    "scrollLeft": -213,
-    "zoomLevel": 0.9,
+    "scrollTop": -195.50809999999973,
+    "scrollLeft": -179.2999,
+    "zoomLevel": 0.8,
     "show": {
       "tableComment": true,
       "columnComment": true,
@@ -426,10 +426,10 @@
           }
         ],
         "ui": {
-          "active": false,
-          "left": 392.2223,
-          "top": 763.684,
-          "zIndex": 1,
+          "active": true,
+          "left": 729.7223,
+          "top": 622.434,
+          "zIndex": 8,
           "widthName": 60,
           "widthComment": 60
         },
@@ -696,9 +696,9 @@
         ],
         "ui": {
           "active": false,
-          "left": 336.8063,
-          "top": 314.016,
-          "zIndex": 4,
+          "left": 360.5563,
+          "top": 244.016,
+          "zIndex": 7,
           "widthName": 60,
           "widthComment": 60
         },
@@ -722,17 +722,17 @@
           "columnIds": [
             "c7890108-2b53-4e9a-9713-07b7f0f7cd93"
           ],
-          "x": 588.512094921875,
-          "y": 763.684,
-          "direction": "top"
+          "x": 729.7223,
+          "y": 697.934,
+          "direction": "left"
         },
         "end": {
           "tableId": "536b443d-019f-405d-afb7-60abd9294a72",
           "columnIds": [
             "00c633a3-933e-4385-8f5c-7c050ce1fb93"
           ],
-          "x": 522.6256359375,
-          "y": 608.5160000000001,
+          "x": 546.3756359375,
+          "y": 538.516,
           "direction": "bottom"
         },
         "constraintName": "fk_customer_to_fact",
@@ -757,8 +757,8 @@
           "columnIds": [
             "acea4cc7-11ed-487d-9534-f8e21b19d6b8"
           ],
-          "x": 429.71596796875,
-          "y": 314.016,
+          "x": 453.46596796875,
+          "y": 244.016,
           "direction": "top"
         },
         "constraintName": "fk_goods_to_fact",
@@ -783,8 +783,8 @@
           "columnIds": [
             "965c02b7-08b8-472a-917a-c32a9a073e4d"
           ],
-          "x": 615.53530390625,
-          "y": 314.016,
+          "x": 639.28530390625,
+          "y": 244.016,
           "direction": "top"
         },
         "constraintName": "fk_address_to_fact",
